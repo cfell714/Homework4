@@ -18,7 +18,7 @@ class DreamListAdapter : ListAdapter<Dream, DreamListAdapter.DreamViewHolder>(Dr
 
     override fun onBindViewHolder(holder: DreamViewHolder, position: Int) {
         val currentDream = getItem(position)
-        holder.bindText(currentDream.id.toString(), holder.idTextView)
+        holder.bindText(currentDream.date, holder.idTextView)
         holder.bindText(currentDream.title, holder.titleTextView)
 
         holder.itemView.setOnClickListener{

@@ -40,6 +40,15 @@
                 android:textSize="36sp" />
 
             <EditText
+                android:id="@+id/editText_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="YYYY-MM-DD"
+                android:inputType="textPersonName"
+                android:textSize="18sp" />
+
+            <EditText
                 android:id="@+id/editText_dreamDescription"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"

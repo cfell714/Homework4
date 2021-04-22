@@ -2,6 +2,7 @@ package com.example.homework4
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 import java.lang.IllegalArgumentException
 
 class DreamViewModel (private val repository: DreamRepository) : ViewModel() {
@@ -20,8 +21,8 @@ class DreamViewModel (private val repository: DreamRepository) : ViewModel() {
         return repository.select(id).asLiveData()
     }
 
-    fun update(id:Int, title:String, description:String, interpretation:String, emotion:String) = viewModelScope.launch{
-        repository.update(id, title, description, interpretation, emotion)
+    fun update(id:Int, date:String, title:String, description:String, interpretation:String, emotion:String) = viewModelScope.launch{
+        repository.update(id, date, title, description, interpretation, emotion)
     }
 
 

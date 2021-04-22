@@ -8,11 +8,13 @@ import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.homework4.databinding.ActivitySecondBinding
+import java.sql.Date
 
 class UpdateActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySecondBinding
     private lateinit var editTextDreamTitle: EditText
+    private lateinit var editTextDate: EditText
     private lateinit var editTextDreamDescription: EditText
     private lateinit var editTextInterpretation : EditText
     private lateinit var textView2 : TextView
@@ -30,6 +32,7 @@ class UpdateActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         editTextDreamTitle = binding.editTextDreamTitle
+        editTextDate = binding.editTextDate
         editTextDreamDescription = binding.editTextDreamDescription
         editTextInterpretation = binding.editTextInterpretation
         textView2 = binding.textView2
@@ -40,13 +43,14 @@ class UpdateActivity : AppCompatActivity() {
         val new_id = Integer.parseInt(temp_id)
 
         val temp_title = intent.getStringExtra("title")
+        val temp_date = intent.getStringExtra("date")
         val temp_description = intent.getStringExtra("description")
         val temp_interpretation = intent.getStringExtra("interpretation")
         val temp_emotion = intent.getStringExtra("emotion")
 
 
         editTextDreamTitle.setText(temp_title)
-        println("this is me " + temp_title.toString())
+        editTextDate.setText(temp_date)
         editTextDreamDescription.setText(temp_description)
         editTextInterpretation.setText(temp_interpretation)
 
@@ -69,10 +73,15 @@ class UpdateActivity : AppCompatActivity() {
             if(TextUtils.isEmpty(editTextDreamDescription.text) || TextUtils.isEmpty(editTextDreamTitle.text) || TextUtils.isEmpty(editTextInterpretation.text) || spinner.selectedItem == ""){
                 Toast.makeText(this, "Section Missing", Toast.LENGTH_LONG).show()
             }else{
-                dreamViewModel.update(new_id, editTextDreamTitle.text.toString(), editTextDreamDescription.text.toString(),
-                        editTextInterpretation.text.toString(), spinner.selectedItem.toString())
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                try {
+                    val dateTemp = Date.valueOf(editTextDate.text.toString())
+                    dreamViewModel.update(new_id, dateTemp.toString(), editTextDreamTitle.text.toString(), editTextDreamDescription.text.toString(),
+                            editTextInterpretation.text.toString(), spinner.selectedItem.toString())
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }catch(e: Exception){
+                    Toast.makeText(this, "Date incorrectly formatted", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }

@@ -13,17 +13,20 @@ class ThirdActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityThirdBinding
     private lateinit var textViewTitleAct3 : TextView
+    private lateinit var textViewDateAct3 : TextView
     private lateinit var textViewDescriptionAct3 : TextView
     private lateinit var textViewInterpretationAct3 : TextView
     private lateinit var textViewScrollAct3 : TextView
     private lateinit var buttonDelete : Button
     private lateinit var buttonUpdate : Button
 
+    private lateinit var textViewDateText : TextView
     private lateinit var textViewSpinnerText : TextView
     private lateinit var textViewDescriptionText : TextView
     private lateinit var textViewInterpretationText : TextView
 
     private lateinit var tempId : String
+    private lateinit var tempDate : String
     private lateinit var tempTitle : String
     private lateinit var tempDescription : String
     private lateinit var tempInterpretation : String
@@ -39,12 +42,14 @@ class ThirdActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         textViewTitleAct3 = binding.textViewTitleAct3
+        textViewDateAct3 = binding.textViewDateAct3
         textViewDescriptionAct3 = binding.textViewDescriptionAct3
         textViewInterpretationAct3 = binding.textViewInterpretationAct3
         textViewScrollAct3 = binding.textViewScrollAct3
         buttonDelete = binding.buttonDelete
         buttonUpdate = binding.buttonUpdate
 
+        textViewDateText = binding.textViewDateText
         textViewSpinnerText = binding.textViewSpinnerText
         textViewDescriptionText = binding.textViewDescriptionText
         textViewInterpretationText = binding.textViewInterpretationText
@@ -55,11 +60,13 @@ class ThirdActivity : AppCompatActivity() {
             dreamViewModel.select(newId).observe(this, Observer {
                 if(it!=null) {
                     textViewTitleAct3.text = it.title
+                    textViewDateAct3.text = it.date
                     textViewDescriptionAct3.text = it.description
                     textViewInterpretationAct3.text = it.interpretation
                     textViewScrollAct3.text = it.emotion
 
                     tempId = it.id.toString()
+                    tempDate = it.date
                     tempTitle = it.title
                     tempDescription = it.description
                     tempInterpretation = it.interpretation
@@ -75,6 +82,7 @@ class ThirdActivity : AppCompatActivity() {
         buttonUpdate.setOnClickListener{
             val intent = Intent(this, UpdateActivity::class.java)
             intent.putExtra("id", tempId)
+            intent.putExtra("date", tempDate)
             intent.putExtra("title", tempTitle)
             intent.putExtra("description", tempDescription)
             intent.putExtra("interpretation", tempInterpretation)

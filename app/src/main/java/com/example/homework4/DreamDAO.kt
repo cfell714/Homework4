@@ -5,19 +5,14 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
+import org.w3c.dom.Text
 
 @Dao
 interface DreamDAO {
 
-    @Query("SELECT * FROM dream_table ORDER BY id ASC")
+    @Query("SELECT * FROM dream_table ORDER BY date ASC")
     fun getAlphabeticalDreams() : Flow<List<Dream>>
-    // added extra here
-    /*
-    @Query("SELECT * FROM dream_table ORDER BY ")
-    fun getDate() : Flow<List<Dream>>
 
-     */
-    // added above
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(dream:Dream)
 
@@ -27,8 +22,9 @@ interface DreamDAO {
     @Query ("SELECT * FROM dream_table WHERE id=:id")
     fun select(id:Int) : Flow<Dream>
 
-    @Query("UPDATE dream_table SET title=:title, description=:description, interpretation=:interpretation, emotion=:emotion WHERE id=:id")
-    suspend fun update(id:Int, title:String, description:String, interpretation:String, emotion:String)
+    // edited here
+    @Query("UPDATE dream_table SET date=:date, title=:title, description=:description, interpretation=:interpretation, emotion=:emotion WHERE id=:id")
+    suspend fun update(id:Int, date:String, title:String, description:String, interpretation:String, emotion:String)
 
 
 }
